@@ -2,7 +2,7 @@ import Scene from "./js/canvas2d/Scene";
 import Scenario1 from "./js/scenario/Scenario1";
 
 const scene = new Scenario1();
-const scene2 = new Scene("canvas-scene-2");
+// const scene2 = new Scene("canvas-scene-2");
 
 // scene.context.fillStyle = "red";
 // scene.context.fillRect(0, 0, scene.width / 2, scene.height / 2);

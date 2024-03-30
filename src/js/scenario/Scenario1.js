@@ -12,13 +12,13 @@ export default class Scenario1 extends Scene {
 
 		//arcs
 		this.arcs = [];
-		const nArcs_ = 10;
+		const nArcs_ = 2;
 
 		for (let i = 0; i < nArcs_; i++) {
 			const arc_ = new RotatingArc(
 				this.width / 2,
 				this.height / 2,
-				this.mainRadius + (i - nArcs_ / 2) * this.deltaRadius,
+				this.mainRadius + (i - nArcs_ / 0.2) * this.deltaRadius,
 				i != 0 && i != nArcs_ - 1 ? deg2rad(Math.random() * 360) : 0,
 				i != 0 && i != nArcs_ - 1 ? deg2rad(Math.random() * 360) : Math.PI * 2
 			);
@@ -34,7 +34,9 @@ export default class Scenario1 extends Scene {
 			this.debugFolder.add(this.params, "speed", -100, 100, 0.25);
 		}
 
-		this.drawGradutation();
+		this.drawGradutation(80, 150);
+		this.drawGradutation(12, 0);
+		this.drawClock();
 	}
 
 	resize() {
@@ -48,9 +50,9 @@ export default class Scenario1 extends Scene {
 		}
 	}
 
-	drawGradutation() {
+	drawGradutation(nGraduations, rotation) {
 		//draw graduation
-		const nGraduations_ = 12;
+		const nGraduations_ = nGraduations;
 		for (let i = 0; i < nGraduations_; i++) {
 			const angle_ = 2 * Math.PI * (i / nGraduations_);
 			const x_ =
@@ -68,7 +70,7 @@ export default class Scenario1 extends Scene {
 			this.context.beginPath();
 			this.context.translate(x_, y_);
 			this.context.rotate(angle_);
-			this.context.moveTo(-length_ / 2, 0);
+			this.context.moveTo(-length_ / 2, rotation);
 			this.context.lineTo(length_ / 2, 0);
 			this.context.stroke();
 			this.context.closePath();
@@ -84,10 +86,65 @@ export default class Scenario1 extends Scene {
 		this.context.lineWidth = this.params["line-width"];
 
 		this.clear();
-		this.drawGradutation();
+		this.drawGradutation(80, 150);
+		this.drawGradutation(12, 0);
+		this.drawClock();
 		this.arcs.forEach((e) => {
 			e.update(this.GlobalContext.time.delta / 1000, this.params.speed);
 			e.drawArc(this.context);
 		});
+	}
+
+	drawClock() {
+		var now = new Date();
+		var hours = now.getHours();
+		var minutes = now.getMinutes();
+		var seconds = now.getSeconds();
+
+		var hourAngle = (hours % 12) * 30 + minutes / 2;
+		var minuteAngle = minutes * 6 + seconds / 10;
+		var secondAngle = seconds * 6;
+
+		var hourLength = this.width / 7;
+		var minLength = this.width / 5.5;
+		var secondLength = this.width / 4.5;
+
+		var centerX = this.width / 2;
+		var centerY = this.height / 2;
+
+		this.context.save();
+		this.context.translate(centerX, centerY);
+		this.context.rotate((hourAngle * Math.PI) / 180);
+		this.context.beginPath();
+		this.context.moveTo(0, 0);
+		this.context.lineTo(0, -hourLength);
+		this.context.lineWidth = 5;
+		this.context.strokeStyle = "green";
+		this.context.stroke();
+		this.context.restore();
+		this.context;
+
+		this.context.save();
+		this.context.translate(centerX, centerY);
+		this.context.rotate((minuteAngle * Math.PI) / 180);
+		this.context.beginPath();
+		this.context.moveTo(0, 0);
+		this.context.lineTo(0, -minLength);
+		this.context.lineWidth = 3;
+		this.context.strokeStyle = "blue";
+		this.context.stroke();
+		this.context.restore();
+		this.context;
+
+		this.context.save();
+		this.context.translate(centerX, centerY);
+		this.context.rotate((secondAngle * Math.PI) / 180);
+		this.context.beginPath();
+		this.context.moveTo(0, 0);
+		this.context.lineTo(0, -secondLength);
+		this.context.lineWidth = 1;
+		this.context.strokeStyle = "red";
+		this.context.stroke();
+		this.context.restore();
 	}
 }
