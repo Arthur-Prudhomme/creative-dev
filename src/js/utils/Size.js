@@ -8,6 +8,11 @@ export class Size extends EventEmitter {
 			this.setSize();
 			this.trigger("resize");
 		});
+
+		window.addEventListener("load", () => {
+			this.setSize();
+			this.trigger("resize");
+		});
 	}
 
 	setSize() {

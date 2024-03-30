@@ -1,3 +1,4 @@
+import EventEmitter from "events";
 import Debug from "./utils/Debug";
 import { Size } from "./utils/Size";
 import Time from "./utils/Time";
