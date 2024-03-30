@@ -18,7 +18,7 @@ export default class Scenario1 extends Scene {
 			const arc_ = new RotatingArc(
 				this.width / 2,
 				this.height / 2,
-				this.mainRadius + (i - nArcs_ / 0.2) * this.deltaRadius,
+				this.mainRadius + (4 * i - nArcs_ / 2) * this.deltaRadius,
 				i != 0 && i != nArcs_ - 1 ? deg2rad(Math.random() * 360) : 0,
 				i != 0 && i != nArcs_ - 1 ? deg2rad(Math.random() * 360) : Math.PI * 2
 			);
@@ -105,9 +105,9 @@ export default class Scenario1 extends Scene {
 		var minuteAngle = minutes * 6 + seconds / 10;
 		var secondAngle = seconds * 6;
 
-		var hourLength = this.width / 7;
-		var minLength = this.width / 5.5;
-		var secondLength = this.width / 4.5;
+		var hourLength = this.mainRadius / 2;
+		var minLength = this.mainRadius / 1.6;
+		var secondLength = this.mainRadius / 1.2;
 
 		var centerX = this.width / 2;
 		var centerY = this.height / 2;
