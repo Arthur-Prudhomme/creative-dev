@@ -88,11 +88,11 @@ export default class Scenario1 extends Scene {
 		this.clear();
 		this.drawGradutation(80, 150);
 		this.drawGradutation(12, 0);
-		this.drawClock();
 		this.arcs.forEach((e) => {
 			e.update(this.GlobalContext.time.delta / 1000, this.params.speed);
 			e.drawArc(this.context);
 		});
+		this.drawClock();
 	}
 
 	drawClock() {
@@ -118,7 +118,7 @@ export default class Scenario1 extends Scene {
 		this.context.beginPath();
 		this.context.moveTo(0, 0);
 		this.context.lineTo(0, -hourLength);
-		this.context.lineWidth = 5;
+		this.context.lineWidth = 6;
 		this.context.strokeStyle = "green";
 		this.context.stroke();
 		this.context.restore();
@@ -130,7 +130,7 @@ export default class Scenario1 extends Scene {
 		this.context.beginPath();
 		this.context.moveTo(0, 0);
 		this.context.lineTo(0, -minLength);
-		this.context.lineWidth = 3;
+		this.context.lineWidth = 3.5;
 		this.context.strokeStyle = "blue";
 		this.context.stroke();
 		this.context.restore();
@@ -142,9 +142,14 @@ export default class Scenario1 extends Scene {
 		this.context.beginPath();
 		this.context.moveTo(0, 0);
 		this.context.lineTo(0, -secondLength);
-		this.context.lineWidth = 1;
+		this.context.lineWidth = 2;
 		this.context.strokeStyle = "red";
 		this.context.stroke();
 		this.context.restore();
+
+		this.context.beginPath();
+		this.context.arc(centerX, centerY, 5, 0, 2 * Math.PI);
+		this.context.fillStyle = "white";
+		this.context.fill();
 	}
 }
