@@ -88,7 +88,6 @@ export default class Scenario1 extends Scene {
 		this.clear();
 		this.drawGradutation(80, 150);
 		this.drawGradutation(12, 0);
-		this.drawRomanNumerals();
 		this.arcs.forEach((e) => {
 			e.update(this.GlobalContext.time.delta / 1000, this.params.speed);
 			e.drawArc(this.context);
@@ -176,93 +175,4 @@ export default class Scenario1 extends Scene {
 	// 		this.context.fillText(i, numX, numY);
 	// 	}
 	// }
-
-	drawX(x, y) {
-		this.context.beginPath();
-		this.context.moveTo(x - 5, y - 5);
-		this.context.lineTo(x + 5, y + 5);
-		this.context.moveTo(x + 5, y - 5);
-		this.context.lineTo(x - 5, y + 5);
-		this.context.stroke();
-	}
-
-	drawV(x, y) {
-		this.context.beginPath();
-		this.context.moveTo(x, y - 10);
-		this.context.lineTo(x + 5, y);
-		this.context.lineTo(x + 10, y - 10);
-		this.context.stroke();
-	}
-
-	drawI(x, y) {
-		this.context.beginPath();
-		this.context.moveTo(x + 2, y);
-		this.context.lineTo(x + 2, y - 10);
-		this.context.stroke();
-	}
-
-	drawRomanNumeral(num, x, y) {
-		switch (num) {
-			case "I":
-				this.drawI(x, y);
-				break;
-			case "V":
-				this.drawV(x, y);
-				break;
-			case "X":
-				this.drawX(x, y);
-				break;
-			default:
-				break;
-		}
-	}
-
-	drawRomanNumerals() {
-		// Définir le centre du canvas
-		var centerX = this.width / 2;
-		var centerY = this.height / 2;
-		var radius = this.width / 2.5; // Rayon du cercle où les numéros seront placés
-
-		// Dessiner les chiffres romains autour du cercle
-		this.context.strokeStyle = "black";
-		this.context.lineWidth = 2;
-		for (var i = 1; i <= 12; i++) {
-			var angle = ((i - 3) * (Math.PI * 2)) / 12; // Décalage de 3 heures pour commencer à midi
-			var numX = centerX + Math.cos(angle) * (radius - 20); // Placer le numéro à l'intérieur du cercle
-			var numY = centerY + Math.sin(angle) * (radius - 20); // Placer le numéro à l'intérieur du cercle
-			this.drawRomanNumeral(this.getRomanNumeral(i), numX, numY);
-		}
-	}
-
-	// Fonction pour obtenir le chiffre romain correspondant à un numéro
-	getRomanNumeral(num) {
-		switch (num) {
-			case 1:
-				return "I";
-			case 2:
-				return "II";
-			case 3:
-				return "III";
-			case 4:
-				return "IV";
-			case 5:
-				return "V";
-			case 6:
-				return "VI";
-			case 7:
-				return "VII";
-			case 8:
-				return "VIII";
-			case 9:
-				return "IX";
-			case 10:
-				return "X";
-			case 11:
-				return "XI";
-			case 12:
-				return "XII";
-			default:
-				return "";
-		}
-	}
 }
