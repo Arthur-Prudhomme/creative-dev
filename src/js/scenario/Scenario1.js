@@ -1,5 +1,6 @@
 import Scene from "../canvas2d/Scene";
 import { RotatingArc } from "../canvas2d/shapes/arc";
+import { ClockHands } from "../canvas2d/shapes/clockHands";
 import { deg2rad } from "../utils/MathUtils";
 
 export default class Scenario1 extends Scene {
@@ -97,53 +98,51 @@ export default class Scenario1 extends Scene {
 
 	drawClock() {
 		var now = new Date();
-		var hours = now.getHours();
-		var minutes = now.getMinutes();
-		var seconds = now.getSeconds();
+		var timeHours = now.getHours();
+		var timeMinutes = now.getMinutes();
+		var timeSeconds = now.getSeconds();
 
-		var hourAngle = (hours % 12) * 30 + minutes / 2;
-		var minuteAngle = minutes * 6 + seconds / 10;
-		var secondAngle = seconds * 6;
+		var hourAngle = (timeHours % 12) * 30 + timeMinutes / 2;
+		var minuteAngle = timeMinutes * 6 + timeSeconds / 10;
+		var secondAngle = timeSeconds * 6;
 
 		var hourLength = this.mainRadius / 2;
-		var minLength = this.mainRadius / 1.6;
+		var minuteLength = this.mainRadius / 1.6;
 		var secondLength = this.mainRadius / 1.2;
 
 		var centerX = this.width / 2;
 		var centerY = this.height / 2;
 
-		this.context.save();
-		this.context.translate(centerX, centerY);
-		this.context.rotate((hourAngle * Math.PI) / 180);
-		this.context.beginPath();
-		this.context.moveTo(0, 0);
-		this.context.lineTo(0, -hourLength);
-		this.context.lineWidth = 6;
-		this.context.strokeStyle = "green";
-		this.context.stroke();
-		this.context.restore();
+		this.clockHands = [];
+		const hours = new ClockHands(
+			centerX,
+			centerY,
+			hourAngle,
+			hourLength,
+			6,
+			"green"
+		);
+		const minutes = new ClockHands(
+			centerX,
+			centerY,
+			minuteAngle,
+			minuteLength,
+			3.5,
+			"blue"
+		);
+		const seconds = new ClockHands(
+			centerX,
+			centerY,
+			secondAngle,
+			secondLength,
+			2,
+			"red"
+		);
+		this.clockHands.push(hours, minutes, seconds);
 
-		this.context.save();
-		this.context.translate(centerX, centerY);
-		this.context.rotate((minuteAngle * Math.PI) / 180);
-		this.context.beginPath();
-		this.context.moveTo(0, 0);
-		this.context.lineTo(0, -minLength);
-		this.context.lineWidth = 3.5;
-		this.context.strokeStyle = "blue";
-		this.context.stroke();
-		this.context.restore();
-
-		this.context.save();
-		this.context.translate(centerX, centerY);
-		this.context.rotate((secondAngle * Math.PI) / 180);
-		this.context.beginPath();
-		this.context.moveTo(0, 0);
-		this.context.lineTo(0, -secondLength);
-		this.context.lineWidth = 2;
-		this.context.strokeStyle = "red";
-		this.context.stroke();
-		this.context.restore();
+		this.clockHands.forEach((hand) => {
+			hand.drawClockHands(this.context);
+		});
 
 		this.context.beginPath();
 		this.context.arc(centerX, centerY, 5, 0, 2 * Math.PI);
@@ -151,6 +150,7 @@ export default class Scenario1 extends Scene {
 		this.context.fill();
 	}
 
+	//JE LA LAISSE MAIS C'EST DU TEXTE DONC PAS AUTORISÉ
 	// drawClockNumbers() {
 	// 	var centerX = this.width / 2;
 	// 	var centerY = this.height / 2;
