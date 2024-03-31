@@ -27,11 +27,11 @@ export default class Scenario1 extends Scene {
 
 		//debug
 		this.params["line-width"] = 10;
-		this.params["color"] = "#fff";
+		this.params["MainColor"] = "#fff";
 
 		if (this.debug.active) {
 			this.debugFolder.add(this.params, "line-width", 1, 15, 1);
-			this.debugFolder.addColor(this.params, "color");
+			this.debugFolder.addColor(this.params, "MainColor");
 		}
 
 		this.drawGradutation(80, 150);
@@ -65,7 +65,7 @@ export default class Scenario1 extends Scene {
 
 			//à faire en fonction
 			this.context.save();
-			this.context.strokeStyle = this.params["color"];
+			this.context.strokeStyle = this.params["MainColor"];
 			this.context.lineWidth = 2;
 			this.context.beginPath();
 			this.context.translate(x_, y_);
@@ -82,7 +82,7 @@ export default class Scenario1 extends Scene {
 		if (!super.update()) return;
 		// console.log("update scénario", this.id);
 
-		this.context.strokeStyle = this.params["color"];
+		this.context.strokeStyle = this.params["MainColor"];
 		this.context.lineWidth = this.params["line-width"];
 
 		this.clear();
@@ -122,7 +122,6 @@ export default class Scenario1 extends Scene {
 		this.context.strokeStyle = "green";
 		this.context.stroke();
 		this.context.restore();
-		this.context;
 
 		this.context.save();
 		this.context.translate(centerX, centerY);
@@ -134,7 +133,6 @@ export default class Scenario1 extends Scene {
 		this.context.strokeStyle = "blue";
 		this.context.stroke();
 		this.context.restore();
-		this.context;
 
 		this.context.save();
 		this.context.translate(centerX, centerY);
