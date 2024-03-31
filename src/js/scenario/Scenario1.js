@@ -26,12 +26,12 @@ export default class Scenario1 extends Scene {
 		}
 
 		//debug
-		this.params["line-width"] = 4;
-		this.params["speed"] = 1;
+		this.params["line-width"] = 10;
+		this.params["color"] = "#fff";
 
 		if (this.debug.active) {
-			this.debugFolder.add(this.params, "line-width", 1, 10, 1);
-			this.debugFolder.add(this.params, "speed", -100, 100, 0.25);
+			this.debugFolder.add(this.params, "line-width", 1, 15, 1);
+			this.debugFolder.addColor(this.params, "color");
 		}
 
 		this.drawGradutation(80, 150);
@@ -65,7 +65,7 @@ export default class Scenario1 extends Scene {
 
 			//à faire en fonction
 			this.context.save();
-			this.context.strokeStyle = "white";
+			this.context.strokeStyle = this.params["color"];
 			this.context.lineWidth = 2;
 			this.context.beginPath();
 			this.context.translate(x_, y_);
@@ -82,7 +82,7 @@ export default class Scenario1 extends Scene {
 		if (!super.update()) return;
 		// console.log("update scénario", this.id);
 
-		this.context.strokeStyle = "white";
+		this.context.strokeStyle = this.params["color"];
 		this.context.lineWidth = this.params["line-width"];
 
 		this.clear();
